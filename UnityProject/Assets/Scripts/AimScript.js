@@ -404,6 +404,7 @@ function HandleGetControl(){
 	var nearest_mag = null;
 	var nearest_mag_dist = 0.0;
 	var colliders = Physics.OverlapSphere(main_camera.transform.position, 2.0, 1 << 8);
+	var has_flashlight = GetFlashlightSlot()!=-1;//make sure there isn't already a flashlight in the inventory:
 	for(var collider in colliders){
 		if(magazine_obj && collider.gameObject.name == magazine_obj.name+"(Clone)" && collider.gameObject.rigidbody){
 			var dist = Vector3.Distance(collider.transform.position, main_camera.transform.position);
@@ -421,11 +422,10 @@ function HandleGetControl(){
 			collider.gameObject.rigidbody.useGravity = false;
 			collider.gameObject.rigidbody.WakeUp();
 			collider.enabled = false;
-		} else if(collider.gameObject.name == "flashlight_object(Clone)" && collider.gameObject.rigidbody && !held_flashlight){
+		} else if(collider.gameObject.name == "flashlight_object(Clone)" && collider.gameObject.rigidbody && !held_flashlight && !has_flashlight){
 			held_flashlight = collider.gameObject;
 			Destroy(held_flashlight.rigidbody);
 			held_flashlight.GetComponent(FlashlightScript).TurnOn();
-			holder.has_flashlight = true;
 			flash_ground_pos = held_flashlight.transform.position;
 			flash_ground_rot = held_flashlight.transform.rotation;
 			flash_ground_pose_spring.state = 1.0;
@@ -759,6 +759,13 @@ function HandleControls() {
 			magazine_instance_in_hand.rigidbody.velocity = character_controller.velocity;
 			magazine_instance_in_hand = null;
 			queue_drop = false;
+		} else if(!gun_instance && mag_stage == HandMagStage.EMPTY && held_flashlight) {
+		//drop flashlight
+			held_flashlight.GetComponent(FlashlightScript).TurnOff();
+			held_flashlight.AddComponent(Rigidbody);
+			held_flashlight.rigidbody.interpolation = RigidbodyInterpolation.Interpolate;
+			held_flashlight.rigidbody.velocity = character_controller.velocity;
+			held_flashlight = null;
 		}
 	}
 	
@@ -1556,6 +1563,9 @@ function OnGUI() {
 				str += empty_slot;
 				str += " ]";
 				display_text.push(new DisplayLine(str, false));
+			}
+			if(!gun_instance && mag_stage == HandMagStage.EMPTY) {
+				display_text.push(new DisplayLine("Drop flashlight: tap [ e ]", false));
 			}
 		} else {
 			var flashlight_slot = GetFlashlightSlot();
