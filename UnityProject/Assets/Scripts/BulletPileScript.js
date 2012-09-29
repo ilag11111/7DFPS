@@ -33,7 +33,7 @@ function Start () {
 					Random.Range(-0.1,0.1));
 		tape.transform.rotation = BulletScript.RandomOrientation();		
 	}
-	if(Random.Range(0,4) == 0 || !holder.has_flashlight ){
+	if(Random.Range(0,4) == 0 && !holder.has_flashlight ){
 		var flashlight : GameObject = Instantiate(holder.flashlight_object);
 		flashlight.transform.position = transform.position + 
 			Vector3(Random.Range(-0.1,0.1),
