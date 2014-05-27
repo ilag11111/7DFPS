@@ -357,7 +357,7 @@ function AimPos() : Vector3 {
 }
 
 function AimDir() : Vector3 {
-	return Quaternion.Euler(-rotation_y, rotation_x, 0.0); * Vector3(0.0,0.0,1.0);
+	return Quaternion.Euler(-rotation_y, rotation_x, 0.0) * Vector3(0.0,0.0,1.0);
 }
 
 function GetGunScript() : GunScript {
