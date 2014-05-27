@@ -2,7 +2,9 @@ UnityProject/Temp/*
 UnityProject/Library/cache/*
 UnityProject/Library/previews/*
 UnityProject/Library/ScriptAssemblies/*
+UnityProject/Library/metadata/*
 *.suo
 *.user
 *.pidb
 *.userprefs
+*.meta

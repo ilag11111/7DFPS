@@ -50,7 +50,8 @@ function RecursiveHasScript(obj : GameObject, script : String, depth : int) : Mo
 }
 
 static function RandomOrientation() : Quaternion {
-	return Quaternion.EulerAngles(Random.Range(0,360),Random.Range(0,360),Random.Range(0,360));
+	//return Quaternion.EulerAngles(Random.Range(0,360),Random.Range(0,360),Random.Range(0,360));
+	return Quaternion.Euler(Random.Range(0,360),Random.Range(0,360),Random.Range(0,360));
 }
 
 function PlaySoundFromGroup(group : Array, volume : float){
@@ -138,6 +139,7 @@ function Update () {
 		line_renderer.SetVertexCount(segment+1);
 		line_renderer.SetPosition(segment, transform.position);
 		++segment;
+		old_pos = transform.position;
 	} else {
 		life_time += Time.deltaTime;
 		death_time += Time.deltaTime;

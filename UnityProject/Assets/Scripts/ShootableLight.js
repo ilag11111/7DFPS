@@ -13,6 +13,7 @@ function WasShot(obj : GameObject, pos : Vector3, vel : Vector3) {
 	if(!destroyed){
 		destroyed = true;
 		light_amount = 0.0;
+		ChangeLight();
 		Instantiate(destroy_effect, transform.FindChild("bulb").position, Quaternion.identity);
 	}
 	if(obj && obj.collider && obj.collider.material.name == "glass (Instance)"){
@@ -35,12 +36,15 @@ function Update () {
 					} else {
 						light_amount = 1.0;
 					}
+					ChangeLight();
 				}
 				blink_delay -= Time.deltaTime;
 				break;
 		}
 	}
+}
 
+function ChangeLight () {
 	var combined_color = Color(light_color.r * light_amount,light_color.g * light_amount,light_color.b * light_amount);
 	for(var light : Light in gameObject.GetComponentsInChildren(Light)){
 		light.color = combined_color;

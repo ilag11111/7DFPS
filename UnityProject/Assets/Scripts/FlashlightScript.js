@@ -16,6 +16,8 @@ function Awake() {
 }
 
 function Start () {
+	transform.FindChild("Spotlight").gameObject.GetComponent(Light).renderMode=LightRenderMode.ForcePixel;
+	transform.FindChild("Pointlight").gameObject.GetComponent(Light).renderMode=LightRenderMode.ForcePixel;
 	initial_pointlight_intensity = transform.FindChild("Pointlight").gameObject.GetComponent(Light).intensity;
 	initial_spotlight_intensity = transform.FindChild("Spotlight").gameObject.GetComponent(Light).intensity;
 	battery_life_remaining = Random.Range(max_battery_life*0.2, max_battery_life);
