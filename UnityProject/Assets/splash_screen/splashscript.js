@@ -41,10 +41,11 @@ function Start () {
 }
 
 function Update () {
-	fade_in = Mathf.Min(5.0, fade_in + Time.deltaTime);
+	var delta=Time.fixedDeltaTime;
+	fade_in = Mathf.Min(5.0, fade_in + delta);
 	if(state == SplashState.FADE_OUT){
-		fade_out = Mathf.Min(1.0, fade_in + Time.deltaTime * 2.0);
-		fade_out_delay += Mathf.Min(0.1,Time.deltaTime);
+		fade_out = Mathf.Min(1.0, fade_in + delta * 2.0);
+		fade_out_delay += delta;
 	}
 	AudioListener.volume = PlayerPrefs.GetFloat("master_volume", 1.0);
 }
