@@ -25,7 +25,7 @@ function WasShot(obj : GameObject, pos : Vector3, vel : Vector3) {
 }
 
 function Start () {
-	
+	ChangeLight ();
 }
 
 function Update () {
@@ -49,11 +49,13 @@ function Update () {
 		}
 		if(Vector3.Distance(playerTemp.transform.position, transform.position) > kSleepDistance){
 			for(var light : Light in gameObject.GetComponentsInChildren(Light)){
-				light.renderMode = LightRenderMode.ForceVertex;      
+				light.enabled = false;
+				transform.FindChild("bulb").renderer.enabled = false;
 			}
 		} else {
 			for(var light : Light in gameObject.GetComponentsInChildren(Light)){
-				light.renderMode = LightRenderMode.ForcePixel;      
+				light.enabled = true;
+				transform.FindChild("bulb").renderer.enabled = true;
 			}
 		}
 	}
@@ -63,6 +65,7 @@ function ChangeLight () {
 	var combined_color = Color(light_color.r * light_amount,light_color.g * light_amount,light_color.b * light_amount);
 	for(var light : Light in gameObject.GetComponentsInChildren(Light)){
 		light.color = combined_color;
+		light.renderMode = LightRenderMode.ForcePixel;
 	}
 	for(var renderer : MeshRenderer in gameObject.GetComponentsInChildren(MeshRenderer)){
 		renderer.material.SetColor("_Illum", combined_color);

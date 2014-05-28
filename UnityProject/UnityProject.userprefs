@@ -1,8 +1,8 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\RobotScript.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\ShootableLight.js">
     <Files>
-      <File FileName="Assets\Scripts\RobotScript.js" Line="8" Column="37" />
+      <File FileName="Assets\Scripts\ShootableLight.js" Line="58" Column="56" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

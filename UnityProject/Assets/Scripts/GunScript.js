@@ -154,50 +154,59 @@ function GetHammerCocked() : Transform {
 
 function Start () {
 	disable_springs = false;
-	if(transform.FindChild("slide")){
-		var slide = transform.FindChild("slide");
-		has_slide = true;
-		slide_rel_pos = slide.localPosition;
-		if(slide.FindChild("auto mod toggle")){
-			has_auto_mod = true;
-			auto_mod_rel_pos = slide.FindChild("auto mod toggle").localPosition;
-			if(Random.Range(0,2) == 0){
-				auto_mod_amount = 1.0;
-				auto_mod_stage = AutoModStage.ENABLED;
-			}
-		}
-	}
+	
+	//Hammer.  Appears on auto and revolver
 	var hammer = GetHammer();
 	if(hammer){
 		has_hammer = true;
 		hammer_rel_pos = hammer.localPosition;
 		hammer_rel_rot = hammer.localRotation;
-	}
-	var yolk_pivot = transform.FindChild("yolk_pivot");
-	if(yolk_pivot){
-		yolk_pivot_rel_rot = yolk_pivot.localRotation;
-		var yolk = yolk_pivot.FindChild("yolk");
-		if(yolk){
-			var cylinder_assembly = yolk.FindChild("cylinder_assembly");
-			if(cylinder_assembly){
-				var extractor_rod = cylinder_assembly.FindChild("extractor_rod");
-				if(extractor_rod){
-					extractor_rod_rel_pos = extractor_rod.localPosition;
-				}
-			}
+		if(Random.Range(0,2) == 0 && has_hammer){
+			hammer_cocked = 0.0;
 		}
 	}
 	
+	//Automatics
 	if(gun_type == GunType.AUTOMATIC){
+		
+		//Slide.
+		if(transform.FindChild("slide")){
+			var slide = transform.FindChild("slide");
+			has_slide = true;
+			slide_rel_pos = slide.localPosition;
+			if(slide.FindChild("auto mod toggle")){
+				has_auto_mod = true;
+				auto_mod_rel_pos = slide.FindChild("auto mod toggle").localPosition;
+				if(Random.Range(0,2) == 0){
+					auto_mod_amount = 1.0;
+					auto_mod_stage = AutoModStage.ENABLED;
+				}
+			}
+		}
+		
+		//Magazine
 		magazine_instance_in_gun = Instantiate(magazine_obj);
 		magazine_instance_in_gun.transform.parent = transform;
-	
+		
+		//Renderers?  I guess this is an optimization for the cartridges to not draw shadows.
 		var renderers = magazine_instance_in_gun.GetComponentsInChildren(Renderer);
 		for(var renderer : Renderer in renderers){
 			renderer.castShadows = false; 
 		}
 		
+		//Slide Lock
 		if(Random.Range(0,2) == 0){
+			slide_amount = kSlideLockPosition;
+			slide_lock = true;
+			
+			//Override the hammer - it must be down if the slide is locked.
+			if (hammer){
+				hammer_cocked = 1.0;
+			}
+		}
+		
+		//Round in chamber
+		if(!slide_lock && Random.Range(0,3) != 0){
 			round_in_chamber = Instantiate(casing_with_bullet, transform.FindChild("point_chambered_round").position, transform.FindChild("point_chambered_round").rotation);
 			round_in_chamber.transform.parent = transform;
 			round_in_chamber.transform.localScale = Vector3(1.0,1.0,1.0);
@@ -207,13 +216,27 @@ function Start () {
 			}
 		}
 		
-		if(Random.Range(0,2) == 0){
-			slide_amount = kSlideLockPosition;
-			slide_lock = true;
-		}
 	}
 	
 	if(gun_type == GunType.REVOLVER){
+	
+		//Yolk. Revovler only.
+		var yolk_pivot = transform.FindChild("yolk_pivot");
+		if(yolk_pivot){
+			yolk_pivot_rel_rot = yolk_pivot.localRotation;
+			var yolk = yolk_pivot.FindChild("yolk");
+			if(yolk){
+				var cylinder_assembly = yolk.FindChild("cylinder_assembly");
+				if(cylinder_assembly){
+					var extractor_rod = cylinder_assembly.FindChild("extractor_rod");
+					if(extractor_rod){
+						extractor_rod_rel_pos = extractor_rod.localPosition;
+					}
+				}
+			}
+		}
+		
+		//Cylinders
 		cylinders = new CylinderState[cylinder_capacity];
 		for(var i=0; i<cylinder_capacity; ++i){
 			cylinders[i] = new CylinderState();
@@ -232,10 +255,8 @@ function Start () {
 		}
 	}
 	
-	if(Random.Range(0,2) == 0 && has_hammer){
-		hammer_cocked = 0.0;
-	}
 	
+	//Safety switch
 	if(transform.FindChild("safety")){
 		has_safety = true;
 		safety_rel_pos = transform.FindChild("safety").localPosition;
@@ -243,8 +264,12 @@ function Start () {
 		if(Random.Range(0,4) == 0){
 			safety_off = 0.0;
 			safety = Safety.ON;
-			slide_amount = 0.0;
-			slide_lock = false;
+			
+			//If the safety is on, then the slide must not be locked.
+			if (has_slide){
+				slide_amount = 0.0;
+				slide_lock = false;
+			}
 		}
 	}
 	
