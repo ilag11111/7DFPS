@@ -9,6 +9,9 @@ private var blink_delay = 0.0;
 
 private var light_amount = 1.0;
 
+private var kSleepDistance = 20.0;
+private var playerTemp:GameObject = null;
+
 function WasShot(obj : GameObject, pos : Vector3, vel : Vector3) {
 	if(!destroyed){
 		destroyed = true;
@@ -26,6 +29,9 @@ function Start () {
 }
 
 function Update () {
+	if (playerTemp == null){
+		playerTemp = GameObject.Find("Player");
+	}
 	if(!destroyed){
 		switch(light_type){
 			case LightType.AIRPLANE_BLINK:
@@ -40,6 +46,15 @@ function Update () {
 				}
 				blink_delay -= Time.deltaTime;
 				break;
+		}
+		if(Vector3.Distance(playerTemp.transform.position, transform.position) > kSleepDistance){
+			for(var light : Light in gameObject.GetComponentsInChildren(Light)){
+				light.renderMode = LightRenderMode.ForceVertex;      
+			}
+		} else {
+			for(var light : Light in gameObject.GetComponentsInChildren(Light)){
+				light.renderMode = LightRenderMode.ForcePixel;      
+			}
 		}
 	}
 }
