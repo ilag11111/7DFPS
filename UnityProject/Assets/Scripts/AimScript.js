@@ -39,7 +39,7 @@ private var holder : GUISkinHolder;
 private var weapon_holder : WeaponHolder;
 
 var disable_springs = false; 
-var disable_recoil = true;
+var disable_recoil = false;
 
 // Private variables
 
@@ -280,8 +280,8 @@ function AddLooseBullet(spring:boolean) {
 }
 
 function Start() { 
-	disable_springs = false; 
-	disable_recoil = true;
+	//disable_springs = false; 
+	//disable_recoil = true;
 	holder = GameObject.Find("gui_skin_holder").GetComponent(GUISkinHolder);
 	weapon_holder = holder.weapon.GetComponent(WeaponHolder);
 	magazine_obj = weapon_holder.mag_object;
