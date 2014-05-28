@@ -60,7 +60,7 @@ public class Spring {
 		this.vel = 0.0;		
 	}
 	public function Update() {  
-		var linear_springs = true;
+		var linear_springs = false;
 		if(linear_springs){
 			this.state = Mathf.MoveTowards(this.state, this.target_state, this.strength * Time.deltaTime * 0.05);
 		} else {	 
