@@ -255,6 +255,7 @@ function SetDead(new_dead : boolean) {
 		head_fall = 0.0;
 	} else {
 		GetComponent(MusicScript).HandleEvent(MusicEvent.DEAD);
+		Time.timeScale = 1.0;
 		head_tilt_vel = Random.Range(-100,100);
 		head_tilt_x_vel = Random.Range(-100,100);
 		head_tilt_y_vel = Random.Range(-100,100);
