@@ -1,9 +1,9 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\GunScript.js">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\GUISkinHolder.js">
     <Files>
-      <File FileName="Assets\Scripts\GunScript.js" Line="1100" Column="70" />
-      <File FileName="Assets\Scripts\GUISkinHolder.js" Line="28" Column="2" />
+      <File FileName="Assets\Scripts\GunScript.js" Line="771" Column="129" />
+      <File FileName="Assets\Scripts\GUISkinHolder.js" Line="21" Column="2" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
