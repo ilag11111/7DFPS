@@ -1097,7 +1097,7 @@ function Update () {
 			transform.FindChild("point_yolk_pivot_open").localRotation,
 			yolk_open_display);
 		var cylinder_assembly = yolk_pivot.FindChild("yolk").FindChild("cylinder_assembly");
-		cylinder_assembly.localRotation.eulerAngles.z = cylinder_rotation;	
+		cylinder_assembly.localRotation.eulerAngles.z = cylinder_rotation+90;	
 		var extractor_rod = cylinder_assembly.FindChild("extractor_rod");
 		extractor_rod.localPosition = Vector3.Lerp(
 			extractor_rod_rel_pos, 

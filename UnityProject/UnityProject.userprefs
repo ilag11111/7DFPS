@@ -1,8 +1,9 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\ShootableLight.js">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\GunScript.js">
     <Files>
-      <File FileName="Assets\Scripts\ShootableLight.js" Line="58" Column="56" />
+      <File FileName="Assets\Scripts\GunScript.js" Line="1100" Column="70" />
+      <File FileName="Assets\Scripts\GUISkinHolder.js" Line="28" Column="2" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
