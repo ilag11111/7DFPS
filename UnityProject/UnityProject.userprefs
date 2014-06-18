@@ -1,9 +1,13 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\GUISkinHolder.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\FlashlightScript.js">
     <Files>
-      <File FileName="Assets\Scripts\GunScript.js" Line="771" Column="129" />
-      <File FileName="Assets\Scripts\GUISkinHolder.js" Line="21" Column="2" />
+      <File FileName="Assets\Scripts\FlashlightScript.js" Line="47" Column="127" />
+      <File FileName="Assets\Scripts\BulletScript.js" Line="81" Column="32" />
+      <File FileName="Assets\Scripts\AimScript.js" Line="759" Column="48" />
+      <File FileName="Assets\Scripts\GunScript.js" Line="407" Column="51" />
+      <File FileName="Assets\Materials\Masked Tint - Vertex Colors.shader" Line="14" Column="31" />
+      <File FileName="Assets\Materials\Illumin-Diffuse - custom.shader" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

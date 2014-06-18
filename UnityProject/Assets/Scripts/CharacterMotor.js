@@ -214,6 +214,26 @@ function GetVelocity() {
 }
 
 private function UpdateFunction () {
+	if (Time.deltaTime==0.0)
+		return;
+	else if (Time.deltaTime>1.0)
+		Debug.LogWarning("High delta time detected: "+Time.deltaTime);
+		
+	var controller = GetComponent (CharacterController);
+	if(crouching && running == 0.0){
+		height_spring.target_state = 0.5 + head_bob;
+	} else {
+		height_spring.target_state = 1.0 + head_bob;
+	}
+	height_spring.Update();
+	var old_height = controller.transform.localScale.y * controller.height;
+	controller.transform.localScale.y = height_spring.state;
+	var height = controller.transform.localScale.y * controller.height;
+	if(height > old_height){
+		controller.transform.position.y += height - old_height;
+	}
+	die_dir *= 0.93;
+	
 	// We copy the actual velocity into a temporary variable that we can manipulate.
 	var velocity : Vector3 = movement.velocity;
 	
@@ -259,7 +279,7 @@ private function UpdateFunction () {
 	groundNormal = Vector3.zero;
 	
    	// Move our character!
-	movement.collisionFlags = controller.Move (currentMovementOffset);
+   	movement.collisionFlags = controller.Move (currentMovementOffset);
 	
 	movement.lastHitPoint = movement.hitPoint;
 	lastGroundNormal = groundNormal;
@@ -369,23 +389,9 @@ function FixedUpdate () {
 		}
 	}
 	
-	var controller = GetComponent (CharacterController);
-	if(crouching && running == 0.0){
-		height_spring.target_state = 0.5 + head_bob;
-	} else {
-		height_spring.target_state = 1.0 + head_bob;
-	}
-	height_spring.Update();
-	var old_height = controller.transform.localScale.y * controller.height;
-	controller.transform.localScale.y = height_spring.state;
-	var height = controller.transform.localScale.y * controller.height;
-	if(height > old_height){
-		controller.transform.position.y += height - old_height;
-	}
-	die_dir *= 0.93;
-	
 	if (useFixedUpdate)
-		UpdateFunction();
+		useFixedUpdate=false;
+		//UpdateFunction();
 }
 
 function Update () {
@@ -401,6 +407,7 @@ function Update () {
 	if(running > 0.0){
 		crouching = false;
 	}
+	
 	if (!useFixedUpdate)
 		UpdateFunction();
 }

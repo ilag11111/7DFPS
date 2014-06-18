@@ -14,7 +14,7 @@ var life_time = 0.0;
 enum MagLoadStage {NONE, PUSHING_DOWN, ADDING_ROUND, REMOVING_ROUND, PUSHING_UP};
 var mag_load_stage = MagLoadStage.NONE;
 var mag_load_progress = 0.0;
-var disable_interp = true;
+var disable_interp = false;
 
 function RemoveRound() : boolean {
 	if(num_rounds == 0){
