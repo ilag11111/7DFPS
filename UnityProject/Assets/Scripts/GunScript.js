@@ -648,7 +648,7 @@ function InsertMag(mag : GameObject) {
 }
 
 function IsCylinderOpen(){
-	return yolk_stage == YolkStage.OPEN || yolk_stage == YolkStage.OPENING;
+	return yolk_stage == YolkStage.OPEN || yolk_stage == YolkStage.OPENING || yolk_stage == YolkStage.CLOSING;
 }
 
 function AddRoundToCylinder() : boolean {
@@ -768,7 +768,7 @@ function ShouldPullBackHammer() : boolean {
 }
 
 function SwingOutCylinder() : boolean {
-	if(gun_type == GunType.REVOLVER && (yolk_stage == YolkStage.CLOSED || yolk_stage == YolkStage.CLOSING)){
+	if(gun_type == GunType.REVOLVER && (yolk_stage == YolkStage.CLOSED || yolk_stage == YolkStage.CLOSING) && (hammer_cocked == 0.0)){
 		yolk_stage = YolkStage.OPENING;
 		return true;
 	} else {
